@@ -61,23 +61,14 @@
             <div class="header-content mx-auto">
               <h1 class="mb-5">Convert XML or JSON to CSV!</h1>
 
-<!--
-                 <form enctype="multipart/form-data">
-                   {% csrf_token %}
-                    {{ form }}
-                   <button type="button"> <input type="file" id="myfile" accept=".json, .xml" ></input>Browse</button>
-
+              <label class="btn btn-outline btn-xl js-scroll-trigger">
+                  Convert
+                 <form method="post" enctype="multipart/form-data">
+                    <input type="file" id="myfile" accept=".json, .xml" style="display: none;"/>
                  </form>
--->
-              <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-
-              <table border="2" >
-                {{ form }}
-              </table>
-
-                <button type="submit">Convert</button>
-                </form>
+            </label>
+                <br/><br/>
+                <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger" onclick="ConvertFunc">Convert</a>
 
             </div>
           </div>
@@ -87,7 +78,7 @@
                 <div class="device">
                   <div class="screen">
                   <!--  Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                    <img src="/static/img/book-1.jpg" class="img-fluid" alt="">
+                    <img src="img/book-1.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="button">
                   <!--   You can hook the "home button" to some JavaScript events or just remove it -->
@@ -102,7 +93,7 @@
     </header>
     <footer>
       <div class="container">
-        <p>&copy; 2017 X-JSON | IFT-540. All Rights Reserved.</p>
+        <p>&copy; 2017 Start Bootstrap. All Rights Reserved.</p>
       </div>
     </footer>
 
