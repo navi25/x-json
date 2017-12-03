@@ -10,7 +10,7 @@ from xjson.models import Document
 
 
 class NewDocForm(forms.Form):
-    file = forms.FileField(label="Please Upload File", widget=forms.FileInput)
+    file = forms.FileField(widget=forms.FileInput)
 
 """ def clean(self):
         cleaned_data = super(NewDocForm,self).clean()

@@ -59,26 +59,9 @@
         <div class="row h-100">
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
-              <h1 class="mb-5">Convert XML or JSON to CSV!</h1>
-
-<!--
-                 <form enctype="multipart/form-data">
-                   {% csrf_token %}
-                    {{ form }}
-                   <button type="button"> <input type="file" id="myfile" accept=".json, .xml" ></input>Browse</button>
-
-                 </form>
--->
-              <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-
-              <table border="2" >
-                {{ form }}
-              </table>
-
-                <button type="submit">Convert</button>
-                </form>
-
+              <h1 class="mb-5">Successfully Converted Your file to CSV!</h1>
+              <p>Download Converted File - <a href="{%url 'xjson:download' %}">{{ filename }}</a></p>
+              <p><a href="{% url 'xjson:index' %}">Convert New XML or JSON to CSV</a></p>
             </div>
           </div>
           <div class="col-lg-5 my-auto">
@@ -102,7 +85,7 @@
     </header>
     <footer>
       <div class="container">
-        <p>&copy; 2017 X-JSON | IFT-540. All Rights Reserved.</p>
+        <p>&copy; 2017 Start Bootstrap. All Rights Reserved.</p>
       </div>
     </footer>
 

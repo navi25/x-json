@@ -33,7 +33,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#download" style="color:white">X - JSON</a>
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'xjson:index' %}" style="color:white">X - JSON</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -59,8 +59,8 @@
         <div class="row h-100">
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
-              <h1 class="mb-5">Converting Your file to CSV!</h1>
-              <p>Submitted File - {{ newq }}</p>
+                <h1 class="mb-5">{{error_msg}}<br/>
+                <a href="{% url 'xjson:index' %}">TRY AGAIN...</a></h1>
             </div>
           </div>
           <div class="col-lg-5 my-auto">
@@ -69,7 +69,7 @@
                 <div class="device">
                   <div class="screen">
                   <!--  Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                    <img src="img/book-1.jpg" class="img-fluid" alt="">
+                    <img src="/static/img/book-1.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="button">
                   <!--   You can hook the "home button" to some JavaScript events or just remove it -->
@@ -84,7 +84,7 @@
     </header>
     <footer>
       <div class="container">
-        <p>&copy; 2017 Start Bootstrap. All Rights Reserved.</p>
+        <p>&copy; 2017 X-JSON | IFT-540. All Rights Reserved.</p>
       </div>
     </footer>
 

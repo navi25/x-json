@@ -11,13 +11,13 @@ from xjson.models import Document
 #def convert(request):
 #    return render(request, 'xjson/convert.html')
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
 from xjson.forms import NewDocForm
-
+from xjson.xmlcsv import get_file_name
 
 # Imaginary function to handle an uploaded file.
-from xjson.ConvertFormat import handle_uploaded_file
+from xjson.ConvertFormat import convert_uploaded_file
 
 """
 def upload_file(request):
@@ -25,12 +25,37 @@ def upload_file(request):
         form = DocumentForm(request.POST, request.FILES)
         print(form.value)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
+            convert_uploaded_file(request.FILES['file'])
             return HttpResponseRedirect('convert')
     else:
         form = DocumentForm()
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'success.html', {'form': form})
 """
+
+import os, tempfile, zipfile
+from django.conf import settings
+import mimetypes
+from wsgiref.util import FileWrapper
+from xjson.Constants import *
+
+
+def send_file(request):
+
+  filename     = download_file_path+'download.csv' # Select your file here.
+  download_name = 'converted_to_csv.csv'
+  wrapper      = FileWrapper(open(filename))
+  content_type = mimetypes.guess_type(filename)[0]
+  response     = HttpResponse(wrapper,content_type=content_type)
+  response['Content-Length']      = os.path.getsize(filename)
+  response['Content-Disposition'] = "attachment; filename=%s"%download_name
+  print("send_file view - ", download_name)
+  return response
+
+def success(request):
+    return render(request, 'xjson/success.html')
+
+def download(request):
+    return render(request, 'xjson/success.html')
 
 class UploadView(TemplateView):
     template_name = 'xjson/index.html'
@@ -44,7 +69,17 @@ class UploadView(TemplateView):
 
 
         if form.is_valid():
-            name = handle_uploaded_file(request.FILES['file'])
-            return render(request, 'xjson/upload.html', {'name' : name})
+            file = request.FILES['file']
+            if file.name.endswith('.json') or file.name.endswith('.xml'):
+                filename = get_file_name(file)
+                fileurl = convert_uploaded_file(request.FILES['file'])
+                if fileurl == DATA_ERROR_CONSTANT:
+                    return render(request, 'xjson/error.html', {'error_msg' : DATA_ERROR_CONSTANT})
+                else:
+                    return render(request, 'xjson/success.html', {'fileurl' : fileurl, 'filename':filename})
+            else:
+                return render(request, 'xjson/error.html', {'error_msg' : INVALID_FILE_FORMAT})
+        else:
+            return render(request, 'xjson/error.html', {'error_msg' : INVALID_FILE_FORMAT})
 
 
